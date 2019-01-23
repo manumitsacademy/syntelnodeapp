@@ -36,4 +36,32 @@ app.post("/addstudent",function(req,res){
 	});
 });
 
+app.put("/updatestudent",function(req,res){
+	MongoClient.connect(url, function(err, client) {
+	  const db = client.db(dbName);
+	  const collection = db.collection('student');
+	  // Find some documents
+	  collection.updateOne({name:req.body.name},{ $set: req.body },function(err,data){console.log(data)})
+	});
+});
+
+app.delete("/deletestudent/:name",function(req,res){
+	
+	console.log(req.params.name);
+	
+	MongoClient.connect(url, function(err, client) {
+		const db = client.db(dbName);
+		const collection = db.collection('student');
+		collection.deleteOne({ name : req.params.name }, function(err, result) {
+			if(err){
+				res.send({'status':err});
+			}
+			else{
+				res.send({'status':'deleted'})				
+			}
+		});
+	});
+});
+
+
 app.listen(4000,function(){console.log("server running on 4000")});
