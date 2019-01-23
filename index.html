@@ -1,0 +1,40 @@
+<html>
+	<body>
+		<div style="border:2px solid;padding:30px;">
+			<a href="http://localhost:4000/getstudents">get stud</a>
+		</div>
+		<div style="border:2px solid;">
+			<form action="http://localhost:4000/getstudents" method="get">
+				<button type="submit">Subm</button>
+			</form>
+		</div>
+		<h1>This is Index Page</h1>
+		<button onclick="abc()">Show students</button>
+		<h1 id="d1"></h1>
+		<script>
+			function abc(){
+			
+				var http = new XMLHttpRequest();
+				
+				console.log(http.readyState);
+				
+				http.open('get','http://localhost:4000/getstudents');
+				
+				console.log(http.readyState);
+				
+				http.send();
+				
+				http.onreadystatechange = function(){
+					
+					if(http.readyState == 4)
+					{
+						document.getElementById("d1").innerHTML = http.responseText;
+					}
+				
+				}
+			
+			
+			}
+		</script>
+	</body>
+</html>
